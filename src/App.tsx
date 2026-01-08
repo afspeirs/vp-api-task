@@ -29,11 +29,11 @@ function App() {
     return <span>Error: {error.message}</span>
   }
   return (
-    <>
+    <ul>
       {data.products.map((product) => (
-        <div key={product.id}>{product.productName}</div>
+        <li key={product.id}>{product.productName}</li>
       ))}
-    </>
+    </ul>
   );
 }
 
