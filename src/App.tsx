@@ -11,7 +11,7 @@ function App() {
     error,
   } = useQuery({
     queryKey: ['test-api'],
-    queryFn: getData,
+    queryFn: () => getData({}),
   });
 
   if (isPending) {
@@ -21,11 +21,13 @@ function App() {
     return <span>Error: {error.message}</span>
   }
   return (
-    <ul className="flex justify-center gap-4 flex-wrap p-4">
-      {data.products.map((product) => (
-        <Card key={product.id} product={product} />
-      ))}
-    </ul>
+    <>
+      <ul className="flex justify-center gap-4 flex-wrap p-4">
+        {data.products.map((product) => (
+          <Card key={product.id} product={product} />
+        ))}
+      </ul>
+    </>
   );
 }
 

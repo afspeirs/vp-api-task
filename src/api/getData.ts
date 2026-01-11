@@ -2,10 +2,34 @@ import axios, { type AxiosResponse } from 'axios';
 
 import type { ApiResponse } from './types';
 
-export async function getData() {
+const sortMapping = {
+  Recommended: 1,
+  PriceLowToHigh: 2,
+  PriceHighToLow: 3,
+  LargestDiscount: 4,
+} as const
+
+type GetDataProps = {
+  query?: string, // ideally this would be possible slugs and not just string
+  pageNumber?: number,
+  size?: number,
+  // additionalPages?: number,
+  sort?: 'Recommended' | 'PriceLowToHigh' | 'PriceHighToLow' | 'LargestDiscount',
+}
+
+export async function getData({
+  query = 'bathroom-furniture',
+  pageNumber = 0,
+  size = 30,
+  // additionalPages = number,
+  sort = 'Recommended',
+}: GetDataProps) {
   const response: AxiosResponse<ApiResponse> = await axios.post(import.meta.env.VITE_API_URL, {
-    query: 'bathroom-furniture',
-    sort: 1,
+    query,
+    pageNumber,
+    size,
+    // additionalPages,
+    sort: sortMapping[sort],
   });
   console.log(response.data);
   return response.data;
