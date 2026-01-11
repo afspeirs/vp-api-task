@@ -1,12 +1,12 @@
 import type { ResponseProduct } from '../api/types'
 
-type CardProps = {
+type ProductCardProps = {
   product: ResponseProduct,
 }
 
-export function Card({
+export function ProductCard({
   product,
-}: CardProps) {
+}: ProductCardProps) {
   return (
     <li className="relative flex flex-col w-54 text-sm bg-white hover:shadow-lg transition-shadow overflow-hidden">
       <div className="w-full aspect-square overflow-hidden">

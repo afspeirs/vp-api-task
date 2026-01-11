@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { getData } from './api/getData';
-import { Card } from './components/Card';
+import { ProductGrid } from './components/ProductGrid';
 import { Pagination } from './components/Pagination';
 
 // TODO: move this into the UI
@@ -33,11 +33,7 @@ function App() {
   }
   return (
     <main className="grid grid-rows-[1fr_auto] h-dvh">
-      <ul className="flex justify-center gap-4 flex-wrap p-4 flex-1 overflow-auto">
-        {data.products.map((product) => (
-          <Card key={product.id} product={product} />
-        ))}
-      </ul>
+      <ProductGrid products={data.products} />
       <Pagination
         pageNumber={pageNumber}
         pagination={data.pagination}
