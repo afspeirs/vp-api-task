@@ -1,18 +1,44 @@
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 import { getData } from './api/getData';
 import { Card } from './components/Card';
+import { Pagination } from './components/Pagination';
+
+// TODO: move this into the UI
+const size = 20;
 
 function App() {
+  const [pageNumber, setPageNumber] = useState(176);
+  // console.log('pageNumber', pageNumber);
+
   const {
     data,
     isPending,
     isError,
     error,
   } = useQuery({
-    queryKey: ['test-api'],
-    queryFn: () => getData({}),
+    queryKey: ['test-api', pageNumber],
+    queryFn: () => getData({
+      pageNumber,
+      size,
+    }),
   });
+  const numberOfPages = data?.pagination ? Math.ceil(data.pagination.total / data.pagination.size) : -1;
+
+  const handlePreviousPage = () => {
+    setPageNumber((prevState) => {
+      return Math.max(prevState - 1, 0);
+    });
+  }
+
+  const handleNextPage = () => {
+    setPageNumber((prevState) => {
+      console.log('prevState', prevState);
+
+      return Math.min(prevState + 1, numberOfPages)
+    })
+  }
 
   if (isPending) {
     return <span>Loading...</span>
@@ -21,13 +47,20 @@ function App() {
     return <span>Error: {error.message}</span>
   }
   return (
-    <>
-      <ul className="flex justify-center gap-4 flex-wrap p-4">
+    <main className="grid grid-rows-[1fr_auto] h-dvh">
+      <ul className="flex justify-center gap-4 flex-wrap p-4 flex-1 overflow-auto">
         {data.products.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </ul>
-    </>
+      <Pagination
+        pagination={data.pagination}
+        handlePreviousPage={handlePreviousPage}
+        handleNextPage={handleNextPage}
+        numberOfPages={numberOfPages}
+        pageNumber={pageNumber}
+      />
+    </main>
   );
 }
 

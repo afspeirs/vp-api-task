@@ -31,6 +31,6 @@ export async function getData({
     // additionalPages,
     sort: sortMapping[sort],
   });
-  console.log(response.data);
+  console.log('response.data', response.data);
   return response.data;
 }
