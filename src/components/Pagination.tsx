@@ -1,22 +1,22 @@
-import type { ResponsePagination } from "../api/types";
+import type { ResponsePagination } from '../api/types';
 
 type PaginationProps = {
-  pagination: ResponsePagination,
-  handlePreviousPage: () => void,
-  handleNextPage: () => void,
-  numberOfPages: number,
   pageNumber: number,
+  pagination: ResponsePagination,
+  setPageNumber: React.Dispatch<React.SetStateAction<number>>,
 }
 
 export function Pagination({
-  handlePreviousPage,
-  handleNextPage,
-  pagination,
-  numberOfPages,
   pageNumber,
+  pagination,
+  setPageNumber,
 }: PaginationProps) {
+  const numberOfPages = pagination ? Math.ceil(pagination.total / pagination.size) : -1;
   const start = (pageNumber * pagination.size);
   const end = (pageNumber === numberOfPages - 1 ? pagination.total - 1 : start + pagination.size - 1);
+
+  const handlePreviousPage = () => setPageNumber((prevState) => Math.max(prevState - 1, 0));
+  const handleNextPage = () => setPageNumber((prevState) => Math.min(prevState + 1, numberOfPages));
 
   return (
     <nav

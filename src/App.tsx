@@ -24,21 +24,6 @@ function App() {
       size,
     }),
   });
-  const numberOfPages = data?.pagination ? Math.ceil(data.pagination.total / data.pagination.size) : -1;
-
-  const handlePreviousPage = () => {
-    setPageNumber((prevState) => {
-      return Math.max(prevState - 1, 0);
-    });
-  }
-
-  const handleNextPage = () => {
-    setPageNumber((prevState) => {
-      console.log('prevState', prevState);
-
-      return Math.min(prevState + 1, numberOfPages)
-    })
-  }
 
   if (isPending) {
     return <span>Loading...</span>
@@ -54,11 +39,9 @@ function App() {
         ))}
       </ul>
       <Pagination
-        pagination={data.pagination}
-        handlePreviousPage={handlePreviousPage}
-        handleNextPage={handleNextPage}
-        numberOfPages={numberOfPages}
         pageNumber={pageNumber}
+        pagination={data.pagination}
+        setPageNumber={setPageNumber}
       />
     </main>
   );
