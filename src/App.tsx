@@ -9,7 +9,7 @@ import { Pagination } from './components/Pagination';
 const size = 20;
 
 function App() {
-  const [pageNumber, setPageNumber] = useState(176);
+  const [pageNumber, setPageNumber] = useState(0);
   // console.log('pageNumber', pageNumber);
 
   const {

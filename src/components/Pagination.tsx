@@ -25,7 +25,7 @@ export function Pagination({
     >
       <p className="text-sm text-pretty text-gray-900">
         Showing <span className="font-medium">{start + 1}</span> to <span className="font-medium">{end + 1}</span> of <span className="font-medium">{pagination.total}</span> results.
-        (Page {pageNumber}/{numberOfPages})
+        (Page {pageNumber + 1}/{numberOfPages})
       </p>
       <div className="flex flex-1 justify-end">
         <button
