@@ -28,6 +28,7 @@ export type ResponseFacet = {
 };
 
 export type ResponseProduct = {
+  averageRating?: number,
   id: `${string}:${string}-${string}`,
   legacyId: string,
   legacyVariantId: string,
