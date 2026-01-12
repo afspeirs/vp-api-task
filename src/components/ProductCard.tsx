@@ -6,6 +6,12 @@ type ProductCardProps = {
   product: ResponseProduct,
 }
 
+const currencyCodeMapping: Record<string, string> = {
+  EUR: '€',
+  GBP: '£',
+  USD: '$',
+};
+
 export function ProductCard({
   product,
 }: ProductCardProps) {
@@ -20,8 +26,9 @@ export function ProductCard({
           alt={product.image?.attributes?.imageAltText || ''}
         />
       </div>
-      <div className="p-2">
+      <div className="p-2 space-y-2">
         <span className='line-clamp-3 text-md'>{product.productName}</span>
+        <span>{currencyCodeMapping[product.price.currencyCode]}{product.price.priceIncTax}</span>
       </div>
       <Activity mode={isRated ? 'visible' : 'hidden'}>
         <div className="absolute top-2 right-2 inline-block bg-amber-400 px-2 py-1 rounded-2xl">
