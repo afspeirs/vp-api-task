@@ -10,7 +10,7 @@ import { ProductGrid } from './components/ProductGrid';
 // TODO: move this into the UI
 const size = 20;
 
-function App() {
+export function App() {
   const [pageNumber, setPageNumber] = useState(0);
   const [sortOption, setSortOption] = useState<SortValue>(1);
   const [activeFilters, setActiveFilters] = useState<FacetFilter>({});
@@ -136,5 +136,3 @@ function App() {
     </main>
   );
 }
-
-export default App;
