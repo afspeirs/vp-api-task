@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { getData } from './api/getData';
+import { getData, type SortValue } from './api/getData';
 import { ProductGrid } from './components/ProductGrid';
 import { Pagination } from './components/Pagination';
+import { ProductSort } from './components/ProductSort';
 
 // TODO: move this into the UI
 const size = 20;
 
 function App() {
   const [pageNumber, setPageNumber] = useState(0);
+  const [sortOption, setSortOption] = useState<SortValue>(1);
   // console.log('pageNumber', pageNumber);
 
   const {
@@ -18,10 +20,11 @@ function App() {
     isError,
     error,
   } = useQuery({
-    queryKey: ['test-api', pageNumber],
+    queryKey: ['test-api', pageNumber, sortOption],
     queryFn: () => getData({
       pageNumber,
       size,
+      sort: sortOption,
     }),
   });
 
@@ -33,6 +36,12 @@ function App() {
   }
   return (
     <main className="grid grid-rows-[1fr_auto] h-dvh">
+      <aside>
+        {/* <ProductFilter /> */}
+        <ProductSort
+          setSortOption={setSortOption}
+        />
+      </aside>
       <ProductGrid products={data.products} />
       <Pagination
         pageNumber={pageNumber}
