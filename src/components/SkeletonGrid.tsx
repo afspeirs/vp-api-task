@@ -1,7 +1,7 @@
 export function SkeletonGrid() {
   return (
     <div className="flex justify-center gap-4 flex-wrap p-4 flex-1 overflow-auto">
-      {[...Array(8)].map((_, i) => (
+      {[...Array(10)].map((_, i) => (
         <div key={i} className="animate-pulse bg-white p-4 w-54">
           {/* Image placeholder */}
           <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-200">

@@ -38,7 +38,7 @@ export function App() {
         />
       </header>
 
-      <div className="flex-1 px-4 py-8">
+      <div className="self-center w-full max-w-7xl flex-1 px-4 py-8">
         {(isFetching || isPending) ? (
            <SkeletonGrid />
         ) : (
