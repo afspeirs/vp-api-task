@@ -11,6 +11,7 @@ export function useProductListing(initialSize = 20) {
 
   const {
     data,
+    isFetching,
     isPending,
     isError,
     error,
@@ -73,6 +74,7 @@ export function useProductListing(initialSize = 20) {
     facets: facetsAll,
     activeFilters,
 
+    isFetching,
     isPending,
     isError,
     error,

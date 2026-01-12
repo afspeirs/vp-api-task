@@ -12,6 +12,7 @@ export function App() {
     activeFilters,
     pageNumber,
     sortOption,
+    isFetching,
     isPending,
     isError,
     error,
@@ -38,7 +39,7 @@ export function App() {
       </header>
 
       <div className="flex-1 px-4 py-8">
-        {isPending ? (
+        {(isFetching || isPending) ? (
            <SkeletonGrid />
         ) : (
           <ProductGrid products={products} />
