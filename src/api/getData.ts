@@ -1,5 +1,4 @@
 import axios, { type AxiosResponse } from 'axios';
-
 import type { ApiResponse } from './types';
 
 export const sortOptions = [
@@ -11,21 +10,20 @@ export const sortOptions = [
 
 export type SortValue = typeof sortOptions[number]['value'];
 
-type FacetFilterValue = {
+export type FacetFilterValue = {
   facetId: string,
   identifier: string,
   value: any,
 };
 export type FacetFilter = Record<string, FacetFilterValue>;
-export type FacetFilters = Record<string, FacetFilterValue[]>;
 
 type GetDataProps = {
-  query?: string, // ideally this would be possible slugs and not just string
+  query?: string,
   pageNumber?: number,
   size?: number,
   additionalPages?: number,
   sort?: SortValue,
-  facets?: FacetFilters,
+  activeFilters?: FacetFilter, // Changed from 'facets' to the raw state
 };
 
 export async function getData({
@@ -34,16 +32,31 @@ export async function getData({
   size = 30,
   additionalPages = 0,
   sort = 1,
-  facets,
+  activeFilters,
 }: GetDataProps) {
+  const formattedFacets: Record<string, any[]> = {};
+
+  if (activeFilters) {
+    Object.values(activeFilters).forEach((opt) => {
+      if (!formattedFacets[opt.facetId]) {
+        formattedFacets[opt.facetId] = [];
+      }
+      formattedFacets[opt.facetId].push({
+        identifier: opt.identifier,
+        value: opt.value,
+      });
+    });
+  }
+
   const response: AxiosResponse<ApiResponse> = await axios.post(import.meta.env.VITE_API_URL, {
     query,
     pageNumber,
     size,
     additionalPages,
     sort,
-    ...(facets && { facets }),
+    // Only send facets if there are actually filters selected
+    ...(Object.keys(formattedFacets).length > 0 && { facets: formattedFacets }),
   });
-  console.log('response.data', response.data);
+
   return response.data;
 }
