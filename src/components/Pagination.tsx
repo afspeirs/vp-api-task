@@ -20,7 +20,7 @@ export function Pagination({
 
   return (
     <nav
-      className="flex items-center justify-between border-t border-gray-600 bg-white px-4 py-3 sm:px-6 select-none"
+      className="flex items-center justify-between px-4 py-3 sm:px-6 select-none"
       aria-label="Pagination"
     >
       <p className="text-sm text-pretty text-gray-900">
