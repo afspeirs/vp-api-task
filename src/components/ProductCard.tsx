@@ -1,4 +1,6 @@
-import type { ResponseProduct } from '../api/types'
+import { Activity } from 'react';
+
+import type { ResponseProduct } from '../api/types';
 
 type ProductCardProps = {
   product: ResponseProduct,
@@ -7,6 +9,8 @@ type ProductCardProps = {
 export function ProductCard({
   product,
 }: ProductCardProps) {
+  const isRated = (product?.averageRating ?? 0) > 0;
+
   return (
     <li className="relative flex flex-col w-54 text-sm bg-white hover:shadow-lg transition-shadow overflow-hidden">
       <div className="w-full aspect-square overflow-hidden">
@@ -19,9 +23,11 @@ export function ProductCard({
       <div className="p-2">
         <span className='line-clamp-3 text-md'>{product.productName}</span>
       </div>
-      <div className="absolute top-2 right-2 inline-block bg-amber-400 px-2 py-1 rounded-2xl">
-        <span className="sr-only">Rated </span> {product.averageRating?.toFixed(1)} <span className="sr-only"> out of 5</span>
-      </div>
+      <Activity mode={isRated ? 'visible' : 'hidden'}>
+        <div className="absolute top-2 right-2 inline-block bg-amber-400 px-2 py-1 rounded-2xl">
+          <span className="sr-only">Rated </span> {product.averageRating?.toFixed(1)} <span className="sr-only"> out of 5</span>
+        </div>
+      </Activity>
     </li>
   )
 }
