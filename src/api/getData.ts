@@ -58,5 +58,7 @@ export async function getData({
     ...(Object.keys(formattedFacets).length > 0 && { facets: formattedFacets }),
   });
 
+  // console.log('response.data', response.data);
+
   return response.data;
 }
