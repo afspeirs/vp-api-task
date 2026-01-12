@@ -1,6 +1,7 @@
 import { Pagination } from './components/Pagination';
 import { ProductFilter } from './components/ProductFilter';
 import { ProductGrid } from './components/ProductGrid';
+import { SkeletonGrid } from './components/SkeletonGrid';
 import { useProductListing } from './hooks/useProductListing';
 
 export function App() {
@@ -38,11 +39,7 @@ export function App() {
 
       <div className="flex-1 px-4 py-8">
         {isPending ? (
-           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="bg-gray-200 aspect-3/4 rounded" />
-              ))}
-           </div>
+           <SkeletonGrid />
         ) : (
           <ProductGrid products={products} />
         )}
